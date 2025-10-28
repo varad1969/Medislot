@@ -1,4 +1,4 @@
-name: Deploy Next.js site to GitHub Pages
+name: Deploy Next.js static site to GitHub Pages
 
 on:
   push:
@@ -18,21 +18,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 🧰
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'pnpm'
 
-      - name: Install dependencies 📦
-        run: npm ci
+      - name: Setup pnpm
+        run: corepack enable && corepack prepare pnpm@latest --activate
 
-      - name: Build Next.js app ⚙️
-        run: npm run build && npm run export
+      - name: Install dependencies (pnpm)
+        run: pnpm install --frozen-lockfile
 
-      - name: Upload static files 🚀
+      - name: Build and export Next.js site
+        run: pnpm run build && pnpm run export
+
+      - name: Upload static files
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
@@ -44,6 +48,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages 🌐
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
