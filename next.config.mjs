@@ -1,14 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  output: 'export', // enables static export
   images: {
-    unoptimized: true,
+    unoptimized: true, // disables image optimization (not supported by Pages)
   },
-}
+  basePath: '/Medislot', // repo name
+  assetPrefix: '/Medislot/', // ensures correct asset loading
+};
 
-export default nextConfig
+export default nextConfig;
+
