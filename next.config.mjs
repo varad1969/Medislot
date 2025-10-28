@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // ✅ Important for static export
+  output: 'export', // 👈 needed for GitHub Pages
   images: {
-    unoptimized: true, // GitHub Pages doesn't support Next image optimization
+    unoptimized: true,
   },
-  basePath: '/Medislot', // ✅ Required for GitHub Pages
-  assetPrefix: '/Medislot/',
-  trailingSlash: true,
+  basePath: '/Medislot', // 👈 use your repo name here
+  assetPrefix: '/Medislot/', // 👈 same here
 };
 
 export default nextConfig;
+
 
 
